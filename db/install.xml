@@ -1,95 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/scholarship/db" VERSION="20100221" COMMENT="XMLDB file for Moodle blocks/scholarship"
+<XMLDB PATH="blocks/scholarship/db" VERSION="20120711" COMMENT="XMLDB file for Moodle blocks/scholarship"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="block_scholarship" COMMENT="Scholarship definition table" NEXT="block_scholarship_document">
+    <TABLE NAME="block_scholarship" COMMENT="Stores basic information about scholarships" NEXT="block_scholarship_courselist">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="name"/>
-        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" COMMENT="Name of the scholarship" PREVIOUS="id" NEXT="description"/>
-        <FIELD NAME="description" TYPE="text" LENGTH="big" NOTNULL="true" SEQUENCE="false" ENUM="false" PREVIOUS="name" NEXT="opendate"/>
-        <FIELD NAME="opendate" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="Start date that the scholarship is available" PREVIOUS="description" NEXT="enddate"/>
-        <FIELD NAME="enddate" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" COMMENT="Last date that the scholarship is available" PREVIOUS="opendate" NEXT="amount"/>
-        <FIELD NAME="amount" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" COMMENT="The amount that the scholarship is worth" PREVIOUS="enddate" NEXT="scholarshiptype"/>
-        <FIELD NAME="scholarshiptype" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="amount" NEXT="multiple"/>
-        <FIELD NAME="multiple" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" COMMENT="Can user apply for the same scholarship multiple times" PREVIOUS="scholarshiptype" NEXT="deleted"/>
-        <FIELD NAME="deleted" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" PREVIOUS="multiple" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="deleted" NEXT="timecreated"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="timemodified"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="description"/>
+        <FIELD NAME="description" TYPE="char" LENGTH="1333" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="name" NEXT="opendate"/>
+        <FIELD NAME="opendate" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="description" NEXT="enddate"/>
+        <FIELD NAME="enddate" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="opendate" NEXT="amount"/>
+        <FIELD NAME="amount" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="enddate" NEXT="scholarshiptype"/>
+        <FIELD NAME="scholarshiptype" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="amount" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="scholarshiptype" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="timemodified" NEXT="value"/>
+        <FIELD NAME="value" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="timecreated"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_scholarship_document" COMMENT="This table holds all document information." PREVIOUS="block_scholarship" NEXT="block_scholarship_doc">
+    <TABLE NAME="block_scholarship_courselist" COMMENT="A list of course names" PREVIOUS="block_scholarship" NEXT="block_scholarship_courses">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="name"/>
-        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="description"/>
-        <FIELD NAME="description" TYPE="text" LENGTH="medium" NOTNULL="true" SEQUENCE="false" ENUM="false" PREVIOUS="name" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="description"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="coursename"/>
+        <FIELD NAME="coursename" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="id"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_scholarship_doc" COMMENT="Documents needed per scholarship" PREVIOUS="block_scholarship_document" NEXT="block_scholarship_selected">
+    <TABLE NAME="block_scholarship_courses" COMMENT="Links scholarships to their courses" PREVIOUS="block_scholarship_courselist" NEXT="block_scholarship_doc">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="scholarshipid"/>
-        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="documentid"/>
-        <FIELD NAME="documentid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="false" SEQUENCE="false" ENUM="false" COMMENT="Document id" PREVIOUS="scholarshipid" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="documentid"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="scholarshipid"/>
+        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="yearid"/>
+        <FIELD NAME="yearid" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="scholarshipid" NEXT="courseid"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="yearid"/>
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="scholarshipid_ix"/>
-        <KEY NAME="scholarshipid_ix" TYPE="foreign" FIELDS="scholarshipid" REFTABLE="block_scholarship" REFFIELDS="id" PREVIOUS="primary" NEXT="documentid_ix"/>
-        <KEY NAME="documentid_ix" TYPE="foreign" FIELDS="documentid" REFTABLE="block_scholarship_document" REFFIELDS="id" PREVIOUS="scholarshipid_ix"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_scholarship_selected" COMMENT="Scholarships that users have selected" PREVIOUS="block_scholarship_doc" NEXT="block_scholarship_doc_upload">
+    <TABLE NAME="block_scholarship_doc" COMMENT="Links scholarships to their required documents" PREVIOUS="block_scholarship_courses" NEXT="block_scholarship_doc_upload">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="scholarshipid"/>
-        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="awarded"/>
-        <FIELD NAME="awarded" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" PREVIOUS="scholarshipid" NEXT="userid"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="awarded" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="userid"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="scholarshipid"/>
+        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="documentid"/>
+        <FIELD NAME="documentid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="scholarshipid" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="documentid"/>
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="userid_ix"/>
-        <KEY NAME="userid_ix" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" PREVIOUS="primary" NEXT="scholarshipid_ix"/>
-        <KEY NAME="scholarshipid_ix" TYPE="foreign" FIELDS="scholarshipid" REFTABLE="block_scholarship" REFFIELDS="id" PREVIOUS="userid_ix"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_scholarship_doc_upload" COMMENT="Documents that users uploaded" PREVIOUS="block_scholarship_selected" NEXT="block_scholarship_year">
+    <TABLE NAME="block_scholarship_doc_upload" COMMENT="Records information about uploaded documents" PREVIOUS="block_scholarship_doc" NEXT="block_scholarship_document">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="docid"/>
-        <FIELD NAME="docid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="userid"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="docid" NEXT="scholarshipid"/>
-        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="userid" NEXT="mail"/>
-        <FIELD NAME="mail" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" COMMENT="Identify if user will send by snail mail" PREVIOUS="scholarshipid" NEXT="selectedid"/>
-        <FIELD NAME="selectedid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="mail" NEXT="received"/>
-        <FIELD NAME="received" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" COMMENT="If documents have been received" PREVIOUS="selectedid" NEXT="filename"/>
-        <FIELD NAME="filename" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" PREVIOUS="received" NEXT="folder"/>
-        <FIELD NAME="folder" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="filename" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="folder"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="docid"/>
+        <FIELD NAME="docid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="docid" NEXT="scholarshipid"/>
+        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="userid" NEXT="filename"/>
+        <FIELD NAME="filename" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="scholarshipid" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="filename" NEXT="folder"/>
+        <FIELD NAME="folder" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="timemodified"/>
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="docid_ix"/>
-        <KEY NAME="docid_ix" TYPE="foreign" FIELDS="docid" REFTABLE="block_scholarship_doc" REFFIELDS="id" PREVIOUS="primary" NEXT="userid_ix"/>
-        <KEY NAME="userid_ix" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" PREVIOUS="docid_ix"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="block_scholarship_year" COMMENT="This table keeps tabs on the year a student is in. That way, only the scholarships for that year will be displayed." PREVIOUS="block_scholarship_doc_upload">
+    <TABLE NAME="block_scholarship_document" COMMENT="Records document information" PREVIOUS="block_scholarship_doc_upload" NEXT="block_scholarship_notice">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="userid"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="yearid"/>
-        <FIELD NAME="yearid" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="userid" NEXT="timecreated"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="yearid" NEXT="timemodified"/>
-        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="timecreated"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="description"/>
+        <FIELD NAME="description" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="name"/>
       </FIELDS>
       <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id" NEXT="userid_ix"/>
-        <KEY NAME="userid_ix" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id" PREVIOUS="primary"/>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_scholarship_notice" COMMENT="Notice that appears on student section" PREVIOUS="block_scholarship_document" NEXT="block_scholarship_selected">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="notice"/>
+        <FIELD NAME="notice" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="id"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_scholarship_selected" COMMENT="Indicates the scholarships a user has selected" PREVIOUS="block_scholarship_notice" NEXT="block_scholarship_users">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="scholarshipid"/>
+        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="id" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="scholarshipid" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="userid"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="block_scholarship_users" COMMENT="Scholarships users have applied for" PREVIOUS="block_scholarship_selected">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="firstname"/>
+        <FIELD NAME="firstname" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="id" NEXT="lastname"/>
+        <FIELD NAME="lastname" TYPE="char" LENGTH="1333" NOTNULL="true" SEQUENCE="false" PREVIOUS="firstname" NEXT="userid"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="lastname" NEXT="scholarshipid"/>
+        <FIELD NAME="scholarshipid" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="userid" NEXT="opendate"/>
+        <FIELD NAME="opendate" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="scholarshipid" NEXT="enddate"/>
+        <FIELD NAME="enddate" TYPE="int" LENGTH="20" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="opendate" NEXT="scholarshipname"/>
+        <FIELD NAME="scholarshipname" TYPE="char" LENGTH="1333" NOTNULL="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="enddate" NEXT="scholarshiptype"/>
+        <FIELD NAME="scholarshiptype" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="scholarshipname" NEXT="mail"/>
+        <FIELD NAME="mail" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="scholarshiptype" NEXT="received"/>
+        <FIELD NAME="received" TYPE="int" LENGTH="1" NOTNULL="true" UNSIGNED="false" DEFAULT="0" SEQUENCE="false" PREVIOUS="mail"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
   </TABLES>

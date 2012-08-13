@@ -1,19 +1,31 @@
 var maxHeight = 750;
 
 $(document).ready(function(){
-    
+    //Fix for IE9 bug where margin is off
+    if(navigator.appName == 'Microsoft Internet Explorer')
+    {
+        document.getElementById("scholarshiplist").style.setAttribute("marginTop", -10 + "px");
+        document.getElementById("mail").style.setAttribute("marginTop", -18 + "px");
+        document.getElementById("scholarshipinfo").style.setAttribute("marginTop", -10 + "px");
+        document.getElementById("mylist").style.setAttribute("marginTop", -18 + "px");
+        document.getElementById("applydocs").style.setAttribute("marginTop", -18 + "px");
+        document.getElementById("uploaddocs").style.setAttribute("marginTop", -18 + "px");
+    }
+        
+    //Shows drop down menu when you hover over 'select year of study'
     $("#selectyear").hover(function(){
-        $("#list").css('visibility', 'visible');
+        $("#list").slideDown();
     },
     function(){
-        $("#list").css('visibility', 'hidden');
+        $("#list").css('display', 'none');
     });
     
+    //make initial page elemnts visible if modal is closed
     $(".close").click(function(){
-        document.getElementById("centered").style.visibility = 'visible'; 
+        window.location = window.location = $("#modal").attr('accept') + "/blocks/scholarship/user/userview.php?userid=" + document.getElementById('scholarshiplist').className;
     });
 
-    
+    //Functions for sliding program list
     $(".dropdown > li.program").hover(function() {
              var $container = $(this),
                  $list = $container.find("ul"),
@@ -31,7 +43,7 @@ $(document).ready(function(){
 
             // make sure dropdown appears directly below parent list item    
             $list
-                .show()
+                .slideDown()
                 .css({
                     paddingTop: 60
                 });
@@ -71,6 +83,11 @@ $(document).ready(function(){
     // Add down arrow only to menu items with submenus
     $(".dropdown > li:has('ul')").each(function() {
         $(this).find("a:first").append("<img src='down-arrow.png' />");
+    });
+    
+    $("#backtolist").click(function(){
+        document.getElementById("applydocs").style.visibility = 'hidden';
+        document.getElementById("mylist").style.visibility = 'visible';
     });
 });
         

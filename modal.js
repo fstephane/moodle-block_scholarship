@@ -1,10 +1,16 @@
 $(document).ready(function() {
     
     document.getElementById("centered").style.visibility = 'visible';
+    document.getElementById("scholinstr").style.visibility = 'visible';
+    document.getElementById("studentlist").style.visibility = 'visible';
+    document.getElementById("or").style.visibility = 'visible';
  
- if(window.location != $("#modal").attr('accept') + "/blocks/scholarship/admin/adminview.php")
+ if((window.location != $("#modal").attr('accept') + "/blocks/scholarship/admin/adminview.php") && (window.location != $("#modal").attr('accept') + "/blocks/scholarship/admin/adminview.php#"))
     {
         document.getElementById("centered").style.visibility = 'hidden';
+        document.getElementById("scholinstr").style.visibility = 'hidden';
+        document.getElementById("studentlist").style.visibility = 'hidden';
+        document.getElementById("or").style.visibility = 'hidden';
         //transition effect     
         $('#mask').fadeIn(1000);    
         $('#mask').fadeTo("slow",0.8);  
@@ -20,8 +26,11 @@ $(document).ready(function() {
     var winH = $(window).height();
     var winW = $(window).width();
     
-    
-    $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 200});
+    //Center elements on front page
+    $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 250});
+    $("#scholinstr").css({'top':(winH/2) - 290, 'left':(winW/2) - 550});
+    $("#studentlist").css({'top':(winH/2) - 100, 'left':(winW/2) - 400});
+    $("#or").css({'top':(winH/2) - 200, 'left':(winW/2) - 35});
     
     //Get the screen height and width
         var maskHeight = winH - 20,
@@ -53,7 +62,11 @@ $(document).ready(function() {
         var maskHeight = winH - 20,
             maskWidth = winW - 20;
             
-        $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 200});
+        //Center elements on front page
+        $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 250});
+        $("#scholinstr").css({'top':(winH/2) - 290, 'left':(winW/2) - 550});
+        $("#studentlist").css({'top':(winH/2) - 100, 'left':(winW/2) - 400});
+        $("#or").css({'top':(winH/2) - 200, 'left':(winW/2) - 35});
             
         //Set height and width to mask to fill up the whole screen
         $('#mask').css({'width':maskWidth,'height':maskHeight});

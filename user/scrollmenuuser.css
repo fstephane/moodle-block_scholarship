@@ -24,6 +24,23 @@ a.list
 }
 ul									
 { list-style: none; width:2000px;}
+input.yellowbtn
+{
+    background-color:chocolate;
+}
+input.yellowbtn:hover
+{
+    background-color:sienna;
+}
+#hover
+{
+    color:black;
+}
+#hover a:hover
+{
+    
+    color:red;
+}
 input.newbutton
 {
    font-size:18px;
@@ -51,6 +68,22 @@ input.newadd
 input.newadd:hover
 {
     background-color: darkslategray;
+}
+input.newadd2
+{
+   font-size:16px;
+   font-family:Verdana,sans-serif;
+   font-weight:bold;
+   color:#FFFFFF;
+   width:283px;
+   height:30px;
+   background-color:midnightblue;
+   border-style:outset;
+   border-color:#AAAAAA;
+}
+input.newadd2:hover
+{
+    background-color: black;
 }
 input.newbuttoncontinue
 {

@@ -1,10 +1,12 @@
 $(document).ready(function() {
     
     document.getElementById("centered").style.visibility = 'visible';
+    document.getElementById("notefrom").style.visibility = 'visible';
     
 if(window.location != $("#modal").attr('accept') + "/blocks/scholarship/user/userview.php?userid=" + $('form[name = year]').attr('id'))
     {
         document.getElementById("centered").style.visibility = 'hidden';
+        document.getElementById("notefrom").style.visibility = 'hidden';
         //transition effect     
         $('#mask').fadeIn(1000);    
         $('#mask').fadeTo("slow",0.8);  
@@ -26,7 +28,8 @@ if(window.location != $("#modal").attr('accept') + "/blocks/scholarship/user/use
         var maskHeight = winH - 20,
             maskWidth = winW - 20;
             
-            $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 200});
+            $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 250});
+            $("#notefrom").css({'top':(winH/2) - 100, 'left':(winW/2) - 250});
             
         //Set height and width to mask to fill up the whole screen
         $('#mask').css({'width':maskWidth,'height':maskHeight});
@@ -56,9 +59,10 @@ if(window.location != $("#modal").attr('accept') + "/blocks/scholarship/user/use
         var maskHeight = winH - 20,
             maskWidth = winW - 20;
             
-            $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 200});
+            $("#centered").css({'top':(winH/2) - 300, 'left':(winW/2) - 250});
             
         //Set height and width to mask to fill up the whole screen
+        $("#notefrom").css({'top':(winH/2) - 100, 'left':(winW/2) - 250});
         $('#mask').css({'width':maskWidth,'height':maskHeight});
         $('#mask').css({'top':10, 'left':10});
     });

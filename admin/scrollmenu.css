@@ -9,11 +9,11 @@ html
 { overflow-y: scroll; }
 .return
 {
-    background-color: #660000;
+    background-color: #474747;
 }
 .return:hover
 {
-    background-color: #4A0000;
+    background-color: #272727;
 }
 a									
 { text-decoration: none; text-align: center;}
@@ -24,6 +24,43 @@ a.list
 }
 ul									
 { list-style: none; width:2000px;}
+div.details
+{
+    background-color:gray;
+    border-radius:20px 20px;
+    padding-top:5px;
+    font-size:20px;
+    position:absolute;
+    top:350px;
+    left:40px;
+    color:white;
+    border:1px black solid;
+    width:299px;
+    height:30px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+div.details:hover
+{
+    color:white;
+    background-color:black;
+}
+table, th, td
+{
+    border:1px white solid;
+}
+input.yellowbtn
+{
+    background-color:chocolate;
+}
+input.yellowbtn:hover
+{
+    background-color:sienna;
+}
 input.newbutton
 {
    font-size:18px;

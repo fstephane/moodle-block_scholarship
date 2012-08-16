@@ -1,4 +1,35 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
+
+
 require_once('../../../config.php');
 require_once('../../../lib/form/filepicker.php');
 require_login(1, true);
@@ -18,7 +49,7 @@ $mail = optional_param('mail', '0', PARAM_INT);         //Generates list of requ
 $send = optional_param('send', '0', PARAM_INT);         //Confirms that a student will mail or hand in their documents
 $sid = optional_param('sid', '0', PARAM_INT);           //Scholarship id
 
-
+//Confirms that a student will mail or hand in their documents
 if($send !== '0')
 {
     $name = $DB->get_record("user", array("id" => $send));
@@ -40,6 +71,7 @@ if($send !== '0')
     $DB->delete_records('block_scholarship_selected', array("userid" => $send, "scholarshipid" => $sid));
 }
 
+//Generates list of required documents for mailing
 if($mail !== '0')
 {
     $doclist = $DB->get_records_sql('SELECT doc.name, doc.description
@@ -57,7 +89,7 @@ if($mail !== '0')
     echo '<input type="button" class="newbutton" onclick="back_to_docs()" style="margin-left:-10px;width:282px;font-size:14px;" value="'.get_string('backtodocs', 'block_scholarship').'" />';
 }
 
-
+//Checks to see if user has already applied for this scholarship
 if($check !== '0')
 {
     if(!$DB->get_record('block_scholarship_users', array("userid" => $USER->id, "scholarshipid" => $check)))

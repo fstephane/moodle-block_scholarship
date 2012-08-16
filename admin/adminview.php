@@ -1,4 +1,35 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
+
+
 require_once('../../../config.php');
 require_once('renderviewadmin.php');
 require_login(1, true);
@@ -14,7 +45,6 @@ global $PAGE, $OUTPUT, $DB, $CFG, $USER;
 		} else {      
 
 $PAGE->set_url($CFG->wwwroot.'/blocks/scholarship/admin/adminview.php');
-$PAGE->requires->js('/blocks/scholarship/jquery.js');
 $PAGE->requires->js('/blocks/scholarship/jquery.min.js');
 $PAGE->requires->js('/blocks/scholarship/admin/dropdown.js');
 $PAGE->requires->css('/blocks/scholarship/admin/scrollmenu.css');
@@ -25,15 +55,22 @@ $PAGE->requires->js('/blocks/scholarship/js/jquery-ui-1.8.21.custom.min.js');
 $PAGE->requires->css('/blocks/scholarship/css/ui-lightness/jquery-ui-1.8.21.custom.css');
 echo $OUTPUT->header();
 
+//records the year of study selected
 $year = optional_param('year', '0', PARAM_INT);
 
+//Creates a list of students that have applied for a scholarship
 $students = $DB->get_records_sql("SELECT DISTINCT us.userid, us.firstname, us.lastname, u.email 
                                 FROM mdl_block_scholarship_users AS us
                                 JOIN mdl_user AS u ON u.id=us.userid
                                 ORDER BY lastname, firstname");
+
+//Creates a list of scholarships that students have applied for 
 $schol = $DB->get_records('block_scholarship_users', array(), '', 'id, firstname, lastname, scholarshipid, userid, scholarshipname');
+
+//Creates a list of documents for scholarships
 $docs = $DB->get_records('block_scholarship_doc_upload', array());
 
+//Creates a list of students who have mailed in their submissions
 $stud = $DB->get_records_sql('SELECT DISTINCT userid, firstname, lastname
                             FROM mdl_block_scholarship_users AS u
                             WHERE mail=1 AND received=0

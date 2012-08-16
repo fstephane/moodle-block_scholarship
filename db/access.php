@@ -30,7 +30,22 @@
 //
 // For the core capabilities, the variable is $moodle_capabilities.
 
-$block_scholarship_capabilities = array(
+/**
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
+
+$capabilities = array(
 
     'block/scholarship:manage' => array(
 
@@ -56,7 +71,7 @@ $block_scholarship_capabilities = array(
             'teacher' => CAP_PREVENT,
             'editingteacher' => CAP_PREVENT,
             'user' => CAP_ALLOW,
-            'admin' => CAP_ALLOW
+            'manager' => CAP_ALLOW
         )
     ),
     
@@ -70,7 +85,21 @@ $block_scholarship_capabilities = array(
             'teacher' => CAP_PREVENT,
             'editingteacher' => CAP_PREVENT,
             'guest' => CAP_ALLOW,
-            'admin' => CAP_ALLOW
+            'manager' => CAP_ALLOW
+        )
+    ),
+    
+    'block/scholarship:addinstance' => array(
+
+        'riskbitmask' => 0,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_USER,
+        'legacy' => array(
+            'teacher' => CAP_PREVENT,
+            'editingteacher' => CAP_PREVENT,
+            'guest' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
         )
     )
 );

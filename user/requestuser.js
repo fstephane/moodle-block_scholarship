@@ -1,3 +1,34 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
+
+//Shows a list of scholarships by the program selected
 $('a[name = listoption]').click(function(){
     document.getElementById("infoind").style.visibility = 'hidden';
     document.getElementById("scholind").style.visibility = 'visible';
@@ -8,6 +39,7 @@ $('a[name = listoption]').click(function(){
     $('#scholarshiplist').load("requestuser.php?year=" + year + "&list=" + option.attr('value'));
 });
 
+//Confirms that submission will be mailed
 function mail_send(uid)
 {
     $("#null").load('requestuser.php?send=' + uid + '&sid=' + document.getElementById('scholid').className, function(){
@@ -16,6 +48,7 @@ function mail_send(uid)
     });
 }
 
+//Shows info for the scholarship selected
 function show_info(el)
 {
     document.getElementById("infoind").style.visibility = 'visible';
@@ -28,6 +61,7 @@ function show_info(el)
     });
 }
 
+//Shows instructions for mailing documents
 function mail()
 {
     document.getElementById('applydocs').style.visibility = 'hidden';
@@ -35,6 +69,7 @@ function mail()
     $("#listdocs").load('requestuser.php?mail=' + document.getElementById('scholid').className);
 }
 
+//Adds a scholarship to a student's list of selected scholarships
 function add_to_list(schol)
 {
     var xmlhttp;
@@ -65,11 +100,13 @@ function add_to_list(schol)
     xmlhttp.send();
 }
 
+//Deletes a scholarship from a student's list
 function delete_selected(sid)
 {
     $('#mylist').load("requestuser.php?delete=" + sid + "&userid=" + $('form[name = year]').attr('id'))
 }
 
+//Shows required documents and presents option of either mailing documents or submitting them electronically
 function apply_docs(sid)
 {
     document.getElementById("mylist").style.visibility = 'hidden';
@@ -78,6 +115,7 @@ function apply_docs(sid)
     $("#doclist").load("requestuser.php?docs=" +  sid);
 }
 
+//Tool for uploading documents electronically
 function upload_docs(year)
 {
     document.getElementById("applydocs").style.visibility = 'hidden';
@@ -94,6 +132,7 @@ function upload_docs(year)
     });
 }
 
+//Exits uploading tool
 function back_to_docs()
 {
     document.getElementById("applydocs").style.visibility = 'visible';
@@ -101,6 +140,7 @@ function back_to_docs()
     document.getElementById("mail").style.visibility = 'hidden';
 }
 
+//Uploads documents to server - puts constraints on the files and shows error message if constraints are not met (correct file type, etc.)
 function apply()
 {
     var cont = true;
@@ -114,6 +154,7 @@ function apply()
         alert(document.getElementById("showname").className);
     else
     {
+        //checks to see that all required documents have been uploaded, and that no 2 files have the same name
         var same = new Array();
         var i = 0;
         $('input[type = file]').each(function(){
@@ -136,6 +177,7 @@ function apply()
                 cont = false;
         if(!cont)
             alert(document.getElementById('block').className);
+        //check file extensions
         else
         {
             var extension = new Array();

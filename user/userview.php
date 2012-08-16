@@ -1,4 +1,35 @@
 <?php
+
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
+
 require_once('../../../config.php');
 require_once('renderviewuser.php');
 require_login(1, true);
@@ -6,7 +37,6 @@ require_login(1, true);
 global $PAGE, $OUTPUT, $DB, $CFG, $USER;
 
 $PAGE->set_url($CFG->wwwroot.'/blocks/scholarship/user/userview.php');
-$PAGE->requires->js('/blocks/scholarship/jquery.js');
 $PAGE->requires->js('/blocks/scholarship/jquery.min.js');
 $PAGE->requires->js('/blocks/scholarship/user/dropdownuser.js');
 $PAGE->requires->css('/blocks/scholarship/user/scrollmenuuser.css');
@@ -19,11 +49,13 @@ $userid = optional_param('userid', '0', PARAM_INT);
 
 $year = optional_param('year', '0', PARAM_INT);
 
-$name = $DB->get_record('user', array("id" => $userid), 'firstname, lastname');
+$name = $DB->get_record('user', array("id" => $USER->id), 'firstname, lastname');
 $fullname = $name->firstname.' '.$name->lastname;
 
+//Note that administrator writes to students
 $notice = $DB->get_record('block_scholarship_notice', array());
 ?>
+<!--Select year dropdown menu-->
 <div id="centered" style="position:absolute;visibility:hidden;">
 <div id="selectyear" style="position:absolute; width:500px; height:50px;"><p style="padding:10px; color:white; font-size:26px; text-align: center;"><?php echo get_string('selectyear', 'block_scholarship');?><img src='down-arrow.png' /></p>
     <ul id="list" style="position:absolute; display:none;top:35px;left:-31px;">
@@ -50,6 +82,7 @@ $notice = $DB->get_record('block_scholarship_notice', array());
         <br/><br/><br/>
         <div style="width:580px;margin-left:20px;position:absolute;margin-top:-40px;">
         <?php
+        //Title for plugin
         switch($year)
         {
             case 1:

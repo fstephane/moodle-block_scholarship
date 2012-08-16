@@ -118,6 +118,7 @@ $string["maildocument"] = 'RAPPEL, vous devez envoyer ce document par la poste a
 $string["maildocumentlink"] = 'Appuyer ici pour l\'addresse.';
 $string["mailreceived"] = 'Vous avez confirmé que les documents de cet(te) étudiant(e) ont été reçus.';
 $string["myscholarships"] = 'Mes bourses sélectionnées';
+$string['mymodule:addintance'] = 'Add a new MyModule';
 $string["name"] = 'Nom';
 $string["monthnames"] = "['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']";
 $string["moreinfo"] = "+";

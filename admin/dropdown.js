@@ -1,5 +1,36 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
+
 var maxHeight = 750;
 
+//Limit textarea length
 function imposeMaxLength(Object, MaxLen)
 {
   return (Object.value.length <= MaxLen);
@@ -60,6 +91,7 @@ function add_again()
 
 
 $(document).ready(function(){
+    
     //End of year tool - continue button
     $("#toolcontinue").click(function(){
         if(document.getElementById("toolcontinue").style.color !== 'rgb(71, 71, 71)')
@@ -203,6 +235,7 @@ $(document).ready(function(){
         }
     });
     
+    //Enables or disables continue button depending on whether or not any courses have been selected (When removing courses)
     $('input[class = checkbox5]').click(function(){
         var boxes = document.getElementsByTagName('input');
         var enable = false;
@@ -225,6 +258,7 @@ $(document).ready(function(){
         }
     });
     
+    //Enables or disables continue button depending on whether or not any courses have been selected (When removing courses)
     $('input[class = endcheck]').click(function(){
         var boxes = document.getElementsByTagName('input');
         var enable = false;
@@ -247,6 +281,7 @@ $(document).ready(function(){
         }
     });
     
+    //Disables or enables other checkboxes in the end of year tool
     $('#checkinfo').click(function(){
         if(document.getElementById('checkinfo').checked)
         {
@@ -276,6 +311,7 @@ $(document).ready(function(){
         }
     });
     
+    //Disables or enables other checkboxes in the end of year tool
     $('#checkschol').click(function(){
         if(document.getElementById('checkschol').checked)
         {
@@ -296,6 +332,7 @@ $(document).ready(function(){
         }
     });
     
+    //Disables or enables other checkboxes in the end of year tool
     $('#checkcourse').click(function(){
         if(document.getElementById('checkcourse').checked)
         {
@@ -307,6 +344,7 @@ $(document).ready(function(){
         }
     });
     
+    //Continue button for end of year tool
     $("#toolcontinue").hover(function(){
         if(document.getElementById('toolcontinue').style.color !== 'rgb(71, 71, 71)')
         {
@@ -321,6 +359,7 @@ $(document).ready(function(){
         }
     });
     
+    //Change some css to account for IE
     if(navigator.appName == 'Microsoft Internet Explorer')
     {
         document.getElementById('greyinfo').style.setAttribute("paddingTop", 23 + "px");
@@ -331,6 +370,7 @@ $(document).ready(function(){
         });
     }
     
+    //Change size of textboxes if in Firefox
     if (BrowserDetect.browser == "Firefox")
     {
         $("textarea").each(function(){

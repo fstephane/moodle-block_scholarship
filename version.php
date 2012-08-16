@@ -15,16 +15,25 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
- *
- * @package    block
- * @subpackage login
- * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2012071001;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2011112900;        // Requires this Moodle version
-$plugin->component = 'block_scholarship';     // Full name of the plugin (used for diagnostics)
+        // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version   = 2012081601;
+$plugin->requires = 2010112400; //Moodle 2.0 = 2010112400; Moodle 2.1 = 2011070100; Moodle 2.2 = 2011120100; Moodle 2.3 = 2012062500
+$plugin->maturity = MATURITY_BETA; // Change the maturity in function of the plugin. MATURITY_ALPHA / MATURITY_BETA / MATURITY_RC / MATURITY_STABLE
+$plugin->release = '0.9.0 (Build: 2012081601)'; //Replace 0.0.0 with the actual version of your plugin. Replace the YYYYMMDDVV with the version of the plugin
+$plugin->component = 'block_scholarship'; //Replace the value with the right name of the plugin

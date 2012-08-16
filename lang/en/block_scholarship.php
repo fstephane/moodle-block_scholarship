@@ -117,6 +117,7 @@ $string["manage"] = 'Manage';
 $string["maildocument"] = 'Remember, you must mail your documents in order for the sholarship application to be valid. Failling to do so will forfeit your application.';
 $string["maildocumentlink"] = 'Click here to view mailing address.';
 $string["myscholarships"] = 'My selected scholarships';
+$string['mymodule:addintance'] = 'Add a new MyModule';
 $string["name"] = 'Name';
 $string["monthnames"] = "['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']";
 $string["moreinfo"] = "+";

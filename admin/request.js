@@ -1,3 +1,35 @@
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+**************************************************************************
+**                              Plugin Name                             **
+**************************************************************************
+* @package     block                                                    **
+* @subpackage  Scholarship                                              **
+* @name        Scholarship                                              **
+* @copyright   oohoo.biz                                                **
+* @link        http://oohoo.biz                                         **
+* @author      Stephane                                                 **
+* @author      Fagnan                                                   **
+* @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later **
+**************************************************************************
+**************************************************************************/
+
+
+
 //Function for clearing every checkbox in a list
 function clear_all()
 {
@@ -16,6 +48,7 @@ function clear_all()
     }
 }
 
+//Function for clearing every checkbox in a list
 function clear_all8()
 {
     var boxes = document.getElementsByTagName('input');
@@ -27,6 +60,7 @@ function clear_all8()
     }
 }
 
+//Function for clearing every checkbox in a list
 function clear_all9()
 {
     var boxes = document.getElementsByTagName('input');
@@ -38,11 +72,13 @@ function clear_all9()
     }
 }
 
+//Displays a table with information on all available scholarships
 function show_table()
 {
     $("#details").slideDown('slow');
 }
 
+//AJAX call that saves a new course name
 function new_course()
 {
     var string = escape(document.getElementById("coursename1").value);
@@ -51,6 +87,7 @@ function new_course()
     });
 }
 
+//AJAX call that indicates that a student's mailed documents have been received
 function mail_received(uid, sid)
 {
     $("#null").load('request.php?received=' + uid + '&rid=' + sid, function(){
@@ -59,13 +96,16 @@ function mail_received(uid, sid)
     });
 }
 
+//Allows the administrator to confirm that a student's mailed documents have been received
 $("#mailtool").click(function(){
+    //If tool is hidden, display it when clicked. If it is visible, hide it when clicked
     if(document.getElementById('mailtext').style.display !== 'none')
     {
         $("#addmail").slideDown();
         document.getElementById("mailtext").style.display = 'none';
         document.getElementById("hidemail").style.display = 'inline';
         
+        //Display/Hide options that follow depending on whether checkbox has been checked yet
         $(".checkbox8").click(function(){
             if(!this.checked)
             {
@@ -77,7 +117,9 @@ $("#mailtool").click(function(){
                 clear_all8();
                 this.checked = true;
                 var stid = this.value;
+                //loads names of documents required for this scholarship
                 $("#schollist").load('request.php?smail=' + stid, function(){
+                    //Display/Hide options that follow depending on whether checkbox has been checked yet
                     $(".checkbox9").click(function(){
                         if(!this.checked)
                         {
@@ -100,7 +142,7 @@ $("#mailtool").click(function(){
                                     if(document.getElementById("verify").disabled == false)
                                         document.getElementById("verify").style.backgroundColor = 'darkcyan';
                                 });
-    
+                                //Display/Hide options that follow depending on whether checkbox has been checked yet
                                 $(".checkbox10").click(function(){
                                     var checked = true;
                                     $("input[class = checkbox10]").each(function(){
@@ -125,6 +167,7 @@ $("#mailtool").click(function(){
             }
         });
     }
+    //Hide tool
     else
     {
         $("#addmail").slideUp();
@@ -137,7 +180,7 @@ $("#mailtool").click(function(){
 });
 
 
-
+//Presents confirmation for whether or not a teacher wants to delete a student's submission (front page tool)
 function app_confirm(sid, stid)
 {
     document.getElementById('studentinfo').style.display = 'none';
@@ -147,11 +190,13 @@ function app_confirm(sid, stid)
     document.getElementById('appno').className = stid;
 }
 
+//Cancel button for deleting a submission (front page tool) 
 $("#appno").click(function(){
     document.getElementById('studentinfo').style.display = 'inline';
     document.getElementById('deleteapp').style.display = 'none';
 });
 
+//Deletes a student's submission (front page tool)
 function delete_app()
 {
     var sid = document.getElementById('appyes').className;
@@ -161,6 +206,7 @@ function delete_app()
     });
 }
 
+//Presents confirmation for whether or not a teacher wants to delete a student's submission (plugin tool)
 function app_confirm2(sid, stid)
 {
     document.getElementById('studdocs').style.visibility = 'hidden';
@@ -170,6 +216,7 @@ function app_confirm2(sid, stid)
     document.getElementById('endofyear').className = stid;
 }
 
+//Deletes a student's submission (plugin tool)
 function delete_app2()
 {
     var sid = document.getElementById('endtool').className;
@@ -179,11 +226,13 @@ function delete_app2()
     });
 }
 
+//Cancel button for delete submission confirmation (plugin tool)
 $("#sbysappno").click(function(){
     document.getElementById('studdocs').style.visibility = 'visible';
     document.getElementById('sconfirm').style.visibility = 'hidden';
 });
 
+//End of year tool - Deletes a bundle of information
 function delete_all_scholarships()
 {
     var deleteall = '1';
@@ -202,6 +251,7 @@ function delete_all_scholarships()
     });
 }
 
+//Shows the documents a student has submitted
 function show_docs(user, sid, mail)
 {
     document.getElementById('sbys').style.visibility = 'hidden';
@@ -209,12 +259,14 @@ function show_docs(user, sid, mail)
     $('#studdocs').load('request.php?showdocs=true&userid=' + user + '&scid=' + sid + '&email=' + mail);
 }
 
+//Exits student document viewer and returns to plugin
 function bts()
 {
     document.getElementById('sbys').style.visibility = 'visible';
     document.getElementById('studdocs').style.visibility = 'hidden';
 }
 
+//Delete one or more courses
 function remove_courses()
 {
     var courses = new Array();
@@ -261,6 +313,7 @@ function remove_courses()
     });
 }
 
+//Exits 'remove course' section
 function remove_continue()
 {
     document.getElementById("confirm").style.visibility = 'hidden';
@@ -268,6 +321,7 @@ function remove_continue()
     document.getElementById("hide3").style.visibility = 'hidden';
 }
 
+//Save a note to show students on student view
 function save_note()
 {
     var note = encodeURIComponent(document.getElementById("studentnote").value);
@@ -302,6 +356,7 @@ $('a[name = listoption]').click(function(){
     $('#scholarshiplist').load("request.php?year=" + year + "&list=" + option.attr('value'));
 });
 
+//Shows info for a student when viewing a list of students who have applied for a certain scholarship
 function show_info(el)
 {
     clear_all();
@@ -328,6 +383,7 @@ function show_info(el)
     $('#applied').load("request.php?sbys=" + el.attr('value'));
 }
 
+//Delete a student's submission
 function delete_documents()
 {
     document.getElementById('scholarshipinfo').style.visibility = 'visible';
@@ -336,18 +392,20 @@ function delete_documents()
     $("#amessage").load('request.php?dd=' + $('p[name = scholname]').attr('id'));
 }
 
+//Shows option to delete all the documents of a particular scholarship
 function show_dd()
 {
     document.getElementById("scholarshipinfo").style.visibility = 'hidden';
     document.getElementById('aconfirm').style.visibility = 'visible';
     document.getElementById('docschol').innerHTML = $('p[name = scholname]').html();
 }
-
+//Cancel button for 'delete documents' function
 $("#canceldd").click(function(){
     document.getElementById('aconfirm').style.visibility = 'hidden';
     show_info($('a.list[value =' + $('p[name = scholname]').attr('id') + ']'))
 });
 
+//Shows a form for editing a scholarship
 function edit_scholarship(year)
 {   
     document.getElementById("scholarshipinfo").style.visibility = 'hidden';
@@ -362,6 +420,7 @@ function edit_scholarship(year)
     });
 }
 
+//Deletes an entire scholarship and all the documents submitted for that scholarship
 function delete_scholarship()
 {
     document.getElementById("scholarshipinfo").style.visibility = 'hidden';
@@ -388,11 +447,13 @@ function delete_scholarship()
     });
 }
 
+//Continues after deleting a scholarship
 function delete_continue()
 {
     document.getElementById("confirm2").style.visibility = 'hidden';
 }
 
+//AJAX call for editing scholarship info
 function change_info(id)
 {
     var xml;
@@ -454,12 +515,14 @@ function change_info(id)
     }
 }
 
+//Cancels the 'edit scholarship' function
 function cancel_edit()
 {
     document.getElementById("editscholarship").style.visibility = 'hidden';
     show_info($('a.list[value =' + $('p[name = scholname]').attr('id') + ']'));
 }
 
+//Shows the documents a student has submitted when the student's name is clicked (front page tool)
 function student_info(stid, name, mail)
 {
     var fullname = escape(name);
@@ -467,12 +530,14 @@ function student_info(stid, name, mail)
     $("#studentinfo").load('request.php?student=' + stid + '&fullname=' + fullname + '&email=' + email);
 }
 
+//Downloads a student's uploaded submission
 function read_file(fid, scholarshipid, userid, f)
 {
     var file = escape(f);
     window.location = 'request.php?fid=' + fid + '&scholarshipid=' + scholarshipid + '&userid=' + userid + '&file=' + file;
 }
 
+//Change the courses a scholarship belongs to
 function change_courses()
 {
     document.getElementById("scholarshipinfo").style.visibility = 'hidden';
@@ -577,6 +642,7 @@ function change_courses()
     
 }
 
+//Changes the documents required for a scholarship
 function change_documents()
 {
     document.getElementById("scholarshipinfo").style.visibility = 'hidden';
@@ -624,6 +690,7 @@ function change_documents()
     });
 }
 
+//Adds another document to a scholarship
 function add_doc()
 {
     document.getElementById("changedocs").style.visibility = 'hidden';
@@ -769,14 +836,14 @@ $("#backtoinfo3").click(function(){
     show_info($('a.list[value =' + $('p[name = scholname]').attr('id') + ']'));
 });
 
+//remove a required document from a scholarship
 function remove_document(did)
 {
-    //did stans for document id
-    //I didn't want any return text but I had to load the call into something, so I loaded it into an invisible element
     $("#null").load('request.php?deldoc=' + did);
     change_documents();
 }
 
+//
 function new_scholarship_form()
 {   
     var allcheck = true;
@@ -1031,7 +1098,7 @@ function new_scholarship_form()
         }
     });
 }
-
+//makes an error message blink
 function blink()
 {
     $("#instr").animate({
